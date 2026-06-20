@@ -342,7 +342,7 @@ st.markdown(f"""
 
 # Render chat history
 for msg in st.session_state.messages:
-    avatar = "✦" if msg["role"] == "assistant" else None
+    avatar = "🤖" if msg["role"] == "assistant" else None
     with st.chat_message(msg["role"], avatar=avatar):
         st.markdown(msg["content"])
 
@@ -354,7 +354,7 @@ if user_input:
     with st.chat_message("user"):
         st.markdown(user_input)
 
-    with st.chat_message("assistant", avatar="✦"):
+    with st.chat_message("assistant", avatar="🤖"):
         with st.spinner("Thinking…"):
             try:
                 api_key = st.secrets["GEMINI_API_KEY"]
