@@ -245,38 +245,172 @@ DOC_MODES = {"sop", "cv", "studyplan", "whycountry", "thesis"}
 # ──────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap');
 
-html, body, [class*="css"]  { font-family: 'Inter', sans-serif; }
+:root {
+    --ink: #0F1117;
+    --ink-soft: #4A4F5E;
+    --ink-mute: #8B90A0;
+    --surface: #F7F8FB;
+    --panel: #FFFFFF;
+    --border: #E4E7F0;
+    --accent: #2B5EF7;
+    --accent-2: #7B3FF7;
+    --glow: rgba(43,94,247,0.10);
+}
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* Main app background */
+[data-testid="stAppViewContainer"] {
+    background: var(--surface) !important;
+}
+[data-testid="stHeader"] {
+    background: transparent !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: var(--panel) !important;
+    border-right: 1px solid var(--border);
+}
+[data-testid="stSidebar"] * {
+    color: var(--ink) !important;
+}
+
+/* Sidebar caption labels (SEARCH TOOLS, etc) */
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p,
+[data-testid="stSidebar"] small {
+    color: var(--ink-mute) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    font-size: 0.68rem !important;
+    text-transform: uppercase;
+}
+
+/* Sidebar buttons (tool nav) — secondary (inactive) */
+[data-testid="stSidebar"] button {
+    background: var(--panel) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--ink-soft) !important;
+    border-radius: 9px !important;
+    font-weight: 500 !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
+    transition: all .15s !important;
+}
+[data-testid="stSidebar"] button:hover {
+    background: var(--surface) !important;
+    border-color: var(--accent) !important;
+    color: var(--accent) !important;
+}
+/* Active tool button (primary type) */
+[data-testid="stSidebar"] button[kind="primary"] {
+    background: var(--glow) !important;
+    border: 1px solid var(--accent) !important;
+    color: var(--accent) !important;
+    font-weight: 600 !important;
+}
+[data-testid="stSidebar"] button[kind="primary"]:hover {
+    background: var(--glow) !important;
+    color: var(--accent) !important;
+}
 
 .meridian-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.8rem;
+    font-family: 'DM Serif Display', serif !important;
+    font-size: 1.7rem;
     margin-bottom: 0;
+    color: var(--ink) !important;
 }
 .meridian-sub {
-    color: #8B90A0;
-    font-size: 0.85rem;
-    margin-top: -8px;
+    color: var(--ink-mute) !important;
+    font-size: 0.82rem;
+    margin-top: -6px;
+    margin-bottom: 12px;
 }
+
+/* Tool header card in main area */
 .tool-header {
-    background: #F7F8FB;
-    border: 1px solid #E4E7F0;
-    border-radius: 12px;
-    padding: 14px 18px;
-    margin-bottom: 16px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 18px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+    box-shadow: 0 1px 3px rgba(15,17,23,0.04);
 }
 .tool-header-icon {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
+    width: 44px; height: 44px;
+    background: var(--glow);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
 }
-.tool-header-text h3 { margin: 0; font-size: 1rem; }
-.tool-header-text p { margin: 0; color: #8B90A0; font-size: 0.8rem; }
+.tool-header-text h3 {
+    margin: 0; font-size: 1.05rem; font-weight: 700;
+    color: var(--ink) !important;
+}
+.tool-header-text p {
+    margin: 0; color: var(--ink-mute) !important; font-size: 0.82rem;
+}
 
-div[data-testid="stChatMessage"] {
-    border-radius: 14px;
+/* Main content text defaults */
+[data-testid="stAppViewContainer"] .main p,
+[data-testid="stAppViewContainer"] .main li,
+[data-testid="stAppViewContainer"] .main span {
+    color: var(--ink) !important;
+}
+
+/* Chat messages */
+[data-testid="stChatMessage"] {
+    background: var(--panel) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 14px !important;
+    padding: 4px 6px !important;
+    margin-bottom: 10px !important;
+}
+[data-testid="stChatMessage"] p,
+[data-testid="stChatMessage"] li,
+[data-testid="stChatMessage"] strong,
+[data-testid="stChatMessage"] span {
+    color: var(--ink) !important;
+}
+[data-testid="stChatMessage"] strong { font-weight: 700 !important; }
+
+/* Chat input box */
+[data-testid="stChatInput"] textarea {
+    background: var(--panel) !important;
+    color: var(--ink) !important;
+    border: 1.5px solid var(--border) !important;
+    border-radius: 12px !important;
+}
+[data-testid="stChatInput"] textarea::placeholder {
+    color: var(--ink-mute) !important;
+}
+[data-testid="stChatInput"] {
+    background: transparent !important;
+}
+[data-testid="stChatInput"] button {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)) !important;
+    border-radius: 10px !important;
+}
+[data-testid="stChatInput"] button svg {
+    fill: #fff !important;
+}
+
+/* Bottom container (chat input area background) */
+[data-testid="stBottomBlockContainer"] {
+    background: var(--surface) !important;
+}
+
+/* Spinner text */
+[data-testid="stSpinner"] p {
+    color: var(--ink-soft) !important;
 }
 </style>
 """, unsafe_allow_html=True)
